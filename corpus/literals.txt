@@ -1,0 +1,90 @@
+=====
+unit
+=====
+
+def main(): Unit = ()
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (unit)))
+
+=====
+boolean
+=====
+
+def main(): Bool = false
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (boolean)))
+
+=====
+integer
+=====
+
+def main(): Int32 = 123
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (integer)))
+
+=====
+float
+=====
+
+def main(): Float32 = 123.123
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (float)))
+
+=====
+string
+=====
+
+def main(): String = "hi there"
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (string)))
+
+=====
+char
+=====
+
+def main(): Char = 'a'
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (char)))
+

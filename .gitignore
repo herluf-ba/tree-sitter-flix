@@ -1,3 +1,8 @@
+# Treesitter generated files
+bindings/
+target/
+binding.gyp
+
 # Logs
 logs
 *.log

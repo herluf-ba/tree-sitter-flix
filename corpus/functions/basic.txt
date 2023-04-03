@@ -1,0 +1,14 @@
+=====
+Basic
+=====
+
+def main(): Bool = false
+
+---
+
+(program
+  (function_definition
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (boolean)))

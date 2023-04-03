@@ -1,0 +1,34 @@
+{
+  "name": "tree-sitter-flix",
+  "version": "0.1.0",
+  "description": "Tree sitter parser for Flix",
+  "main": "bindings/node",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/herluf-ba/tree-sitter-flix.git"
+  },
+  "keywords": [
+    "flix",
+    "treesitter",
+    "parser"
+  ],
+  "author": "HerlufB",
+  "license": "Apache-2",
+  "bugs": {
+    "url": "https://github.com/herluf-ba/tree-sitter-flix/issues"
+  },
+  "homepage": "https://github.com/herluf-ba/tree-sitter-flix#readme",
+  "dependencies": {
+    "nan": "^2.17.0"
+  },
+
+  "tree-sitter": [
+    {
+      "scope": "source.flix",
+      "file-types": ["flix"]
+    }
+  ]
+}

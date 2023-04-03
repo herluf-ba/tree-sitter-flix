@@ -1,0 +1,238 @@
+=====
+not
+=====
+
+def main(): Bool = not false
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (unary_expression
+      (boolean))))
+
+=====
+unary minus
+=====
+
+def main(): Int32 = -1
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (unary_expression
+      (integer))))
+
+=====
+and
+=====
+
+def main(): Bool = true and false
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (binary_expression
+      (boolean)
+      (boolean))))
+
+=====
+or
+=====
+
+def main(): Bool = true or false
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (binary_expression
+      (boolean)
+      (boolean))))
+
+=====
+bitwise or
+=====
+
+def main(): Bool = 1 ||| 2
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (binary_expression
+      (integer)
+      (integer))))
+
+=====
+bitwise xor
+=====
+
+def main(): Int32 = 1 ^^^ 2
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (binary_expression
+      (integer)
+      (integer))))
+
+=====
+bitwise and
+=====
+
+def main(): Int32 = 1 &&& 2
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (binary_expression
+      (integer)
+      (integer))))
+
+=====
+equality
+=====
+
+def main(): Bool = 1 != 2
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (binary_expression
+      (integer)
+      (integer))))
+
+=====
+comparison
+=====
+
+def main(): Bool = 1 <= 2
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (binary_expression
+      (integer)
+      (integer))))
+
+=====
+bitwise shift
+=====
+
+def main(): Bool = 1 <<< 2
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (binary_expression
+      (integer)
+      (integer))))
+
+=====
+multiply
+=====
+
+def main(): Int32 = 1 * 2
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (binary_expression
+      (integer)
+      (integer))))
+
+=====
+plus
+=====
+
+def main(): Int32 = 1 + 2
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (binary_expression
+      (integer)
+      (integer))))
+
+=====
+unary precedence
+=====
+
+def main(): Bool = not true and false
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (binary_expression
+      (unary_expression
+        (boolean))
+      (boolean))))
+
+=====
+binary precedence
+=====
+
+def main(): Int32 = 1 + 2 * 3
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (binary_expression
+      (integer)
+      (binary_expression
+        (integer)
+        (integer)))))
