@@ -153,16 +153,12 @@ def main() = ()
 =====
 type params
 =====
-@Annotation1 @Annotation2
 def my_function[t: Type](v: t) = ()
 
 ---
 
 (program
   (function_declaration
-    (annotations
-      (annotation)
-      (annotation))
     (identifier)
     (type_parameters
       (type_parameter

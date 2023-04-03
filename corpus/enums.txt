@@ -1,0 +1,47 @@
+=====
+basic
+=====
+
+enum MyEnum {
+  case Empty,
+  case Full(Int32)
+}
+
+---
+
+(program
+  (enum_declaration
+    (identifier)
+    (constructors
+      (constructor
+        (identifier))
+      (constructor
+        (identifier)
+        (constructor_parameters
+          (type_primitive))))))
+
+=====
+polymorphic
+=====
+
+enum MyEnum[a] {
+  case Empty,
+  case Full(a)
+}
+
+---
+
+(program
+  (enum_declaration
+    (identifier)
+    (type_parameters
+      (type_parameter 
+        (identifier)))
+    (constructors
+      (constructor
+        (identifier))
+      (constructor
+        (identifier)
+        (constructor_parameters
+          (polymorphic_identifier))))))
+

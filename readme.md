@@ -8,18 +8,18 @@ Note that this is not an LSP, so it wont provide features like go-to-definition,
 - [x] effects
 - [x] kinds
 - [x] type arguments
-- [ ] string interpolation
-- [ ] greek names
-- [ ] user defined operators
-- [ ] infix functions
-- [ ] `<+>` function compositions
+- [x] user defined operators
+- [x] infix functions
+- [x] `<+>` function compositions
 - [ ] enums
 - [ ] type classes
 - [ ] modules
-- [ ] block comments
 - [ ] regions, ref and deref
 - [ ] expression: match
 - [ ] expression: if
 - [ ] expression: monadic-for
 - [ ] expression: foreach
 - [ ] keywords from (this)[https://doc.flix.dev/identifiers.html]
+- [ ] string interpolation
+- [ ] greek names
+- [ ] block comments

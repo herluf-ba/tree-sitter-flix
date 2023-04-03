@@ -51,8 +51,18 @@ module.exports = grammar({
 	//////// ENUMS //////////////
 	enum_declaration: $ => seq(
 	    'enum', 
-	    field('name', $._type_identifier),
+	    field('name', alias($.uppercase_name, $.identifier)),
+	    optional(field('type_parameters', $.type_parameters)),
+	    field('constructors', $.constructors),
 	),
+
+	constructors: $ => seq('{', zero_or_more($.constructor), '}'),
+	constructor: $ => seq(
+	    'case', 
+	    alias($.uppercase_name, $.identifier), 
+	    optional(field('parameters', $.constructor_parameters))
+	),
+	constructor_parameters: $ => seq('(', one_or_more($._type), ')'),
 
 	//////// FUNCTIONS //////////
 	function_declaration: ($) => seq(
@@ -108,6 +118,12 @@ module.exports = grammar({
 	    seq('~~~', $._expression),
 	)),
 	binary_expression: $ => choice(
+	    prec.left(PREC.user_defined_op, 
+		seq($._expression, alias($.operator_name, $.user_operator), $._expression)),
+	    prec.left(PREC.composition, 
+		seq($._expression, '<+>', $._expression)),
+	    prec.left(PREC.infix_function, 
+		seq($._expression, $.infix_function, $._expression)),
 	    prec.left(PREC.or, 
 		seq($._expression, 'or', $._expression)),
 	    prec.left(PREC.and, 
@@ -131,6 +147,7 @@ module.exports = grammar({
 	),
 	grouped_expression: $ => prec(PREC.group, seq('(', $._expression, ')')),
 	tuple_expression: $ => seq('(', one_or_more($._expression), ')'),
+	infix_function: $ => seq('`', $._identifier, '`'),
 
 	/////// TYPES /////////
 	_type: $ => choice(

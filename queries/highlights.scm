@@ -3,8 +3,8 @@
 
 ; KEYWORDS
 "def"       @keyword
-; "enum"      @keyword
-; "case"      @keyword
+"enum"      @keyword
+"case"      @keyword
 ; "class"     @keyword
 ; "let"       @keyword
 ; "if"        @keyword
@@ -50,6 +50,7 @@
 "=="  @operator
 "!="  @operator
 "<=>" @operator
+"<+>" @operator
 "<="  @operator
 "<"   @operator
 ">"   @operator
@@ -61,10 +62,12 @@
 "/"   @operator
 "+"   @operator
 "-"   @operator
+(user_operator)   @operator
+(infix_function)  @operator
 
 ; TYPES
-(type_primitive)     @type.builtin
-(polymorphic_identifier) @variable.parameter
+(type_primitive)         @type.builtin
+(polymorphic_identifier) @type
 (type (identifier) @type)
 
 ; LITERALS
@@ -88,6 +91,10 @@
 ":"  @punctuation.delimiter
 "\\" @punctuation.delimiter
 "->" @punctuation
+
+; FUNCTIONS
+(enum_declaration name: (identifier) @type.definition)
+(constructor (identifier) @type.definition)
 
 ; FUNCTIONS
 (function_declaration name: (identifier) @function)

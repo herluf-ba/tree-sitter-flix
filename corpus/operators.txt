@@ -288,3 +288,58 @@ def main(): Int32 = 1 + 2 * true
         (integer)
         (boolean)))))
 
+=====
+user defined operator
+=====
+
+def main(): Int32 = true |> false
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (binary_expression
+      (boolean)
+      (user_operator)
+      (boolean))))
+
+=====
+composition
+=====
+
+def main(): Int32 = true <+> false
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (binary_expression
+      (boolean)
+      (boolean))))
+
+=====
+infix function
+=====
+
+def main(): Int32 = true `my_func` false
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (binary_expression
+      (boolean)
+      (infix_function
+       (identifier))
+      (boolean))))
+
+
