@@ -1,3 +1,5 @@
+.DS_Store
+
 # Treesitter generated files
 bindings/
 target/

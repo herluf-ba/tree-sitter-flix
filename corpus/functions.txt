@@ -1,0 +1,175 @@
+=====
+basic
+=====
+
+def main(): Bool = false
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (boolean)))
+
+=====
+parameter
+=====
+
+def main(a: Int32): Bool = false
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters
+      (parameter
+        (identifier)
+        (type_primitive)))
+    (type_primitive)
+    (boolean)))
+
+=====
+parameters
+=====
+
+def main(a: Int32, b: Int32): Bool = false
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters
+      (parameter
+        (identifier)
+        (type_primitive))
+      (parameter
+        (identifier)
+        (type_primitive)))
+    (type_primitive)
+    (boolean)))
+
+=====
+unit return shorthand
+=====
+
+def main() = false
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (boolean)))
+
+=====
+effect
+=====
+
+def main() \ IO = false
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (effect)
+    (boolean)))
+
+=====
+effects
+=====
+
+def main() \ {IO, Read, Write} = false
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (effects
+      (effect)
+      (effect)
+      (effect))
+    (boolean)))
+
+=====
+polymorfic effect
+=====
+
+def main() \ {IO, Read, ef} = false
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (effects
+      (effect)
+      (effect)
+      (polymorphic_effect))
+    (boolean)))
+
+=====
+annotation
+=====
+@Annotation
+def main() = ()
+
+---
+
+(program
+  (function_declaration
+    (annotations
+      (annotation))
+    (identifier)
+    (parameters)
+    (unit)))
+
+=====
+annotations
+=====
+@Annotation1 @Annotation2
+def main() = ()
+
+---
+
+(program
+  (function_declaration
+    (annotations
+      (annotation)
+      (annotation))
+    (identifier)
+    (parameters)
+    (unit)))
+
+=====
+type params
+=====
+@Annotation1 @Annotation2
+def my_function[t: Type](v: t) = ()
+
+---
+
+(program
+  (function_declaration
+    (annotations
+      (annotation)
+      (annotation))
+    (identifier)
+    (type_parameters
+      (type_parameter
+        (identifier)
+        (kind)))
+    (parameters
+      (parameter
+        (identifier)
+        (polymorphic_identifier)))
+    (unit)))

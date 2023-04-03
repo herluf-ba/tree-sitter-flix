@@ -5,8 +5,9 @@ Enables semantic syntax highlighting and navigation (think expand/reduce selecti
 Note that this is not an LSP, so it wont provide features like go-to-definition, rename-symbol or suggestions.
 
 #### Todo:
-- [ ] effects
-- [ ] kinds
+- [x] effects
+- [x] kinds
+- [x] type arguments
 - [ ] string interpolation
 - [ ] greek names
 - [ ] user defined operators

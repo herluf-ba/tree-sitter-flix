@@ -55,37 +55,52 @@
 ">"   @operator
 ">="  @operator
 "*"   @operator
+"**"  @operator
+"mod" @operator
+"rem" @operator
 "/"   @operator
 "+"   @operator
 "-"   @operator
 
 ; TYPES
-(type_primitive)  @type.builtin
-; (type_generic)    @variable.parameter
-(type_identifier) @type
+(type_primitive)     @type.builtin
+(polymorphic_identifier) @variable.parameter
+(type (identifier) @type)
 
 ; LITERALS
-(integer) @number
-(float)   @number
-(char)    @string.special
+(integer) @number.integer
+(float)   @number.float
+(char)    @character
 (string)  @string
 (boolean) @constant.builtin
 (nil)     @constant.builtin
 (unit)    @constant.builtin
 
 ; PUNCTUATION
-; "["  @punctuation.bracket
-; "]"  @punctuation.bracket
-"("  @punctuation.paren
-")"  @punctuation.paren
+"["  @punctuation.bracket
+"]"  @punctuation.bracket
+"{"  @punctuation.bracket
+"}"  @punctuation.bracket
+"("  @punctuation.bracket
+")"  @punctuation.bracket
 ; "."  @punctuation.delimiter
 ","  @punctuation.delimiter
-"->" @punctuation.to
 ":"  @punctuation.delimiter
+"\\" @punctuation.delimiter
+"->" @punctuation
 
 ; FUNCTIONS
 (function_declaration name: (identifier) @function)
+(parameters (parameter) @parameter)
+(type_parameters (type_parameter name: (identifier) @parameter))
+(type_parameters (type_parameter kind: (kind) @type.builtin))
+(effect) @label
+(polymorphic_effect) @label
+(annotation) @attribute
 
+; COMMENTS
 (line_comment) @comment
+
 (ERROR) @error
+
 

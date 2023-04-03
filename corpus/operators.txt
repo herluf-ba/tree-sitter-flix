@@ -201,6 +201,57 @@ def main(): Int32 = 1 + 2
       (integer))))
 
 =====
+modulu
+=====
+
+def main(): Int32 = 1 mod 2
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (binary_expression
+      (integer)
+      (integer))))
+
+=====
+remainder
+=====
+
+def main(): Int32 = 1 rem 2
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (binary_expression
+      (integer)
+      (integer))))
+
+=====
+power
+=====
+
+def main(): Int32 = 1 ** 2
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (binary_expression
+      (integer)
+      (integer))))
+
+=====
 unary precedence
 =====
 
@@ -222,7 +273,7 @@ def main(): Bool = not true and false
 binary precedence
 =====
 
-def main(): Int32 = 1 + 2 * 3
+def main(): Int32 = 1 + 2 * true
 
 ---
 
@@ -235,4 +286,5 @@ def main(): Int32 = 1 + 2 * 3
       (integer)
       (binary_expression
         (integer)
-        (integer)))))
+        (boolean)))))
+

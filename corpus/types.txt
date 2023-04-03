@@ -1,14 +1,137 @@
 =====
-Basic
+primitives and tuples
 =====
 
-def main(): Bool = false
+def main(): (Unit, Bool, String, Char, Int8, Int16, Int32, Int64, Float32, Float64, BigInt, BigDecimal) = false
 
 ---
 
 (program
-  (function_definition
+  (function_declaration
     (identifier)
     (parameters)
+    (type_tuple
+      (type_primitive)
+      (type_primitive)
+      (type_primitive)
+      (type_primitive)
+      (type_primitive)
+      (type_primitive)
+      (type_primitive)
+      (type_primitive)
+      (type_primitive)
+      (type_primitive)
+      (type_primitive)
+      (type_primitive))
+    (boolean)))
+
+====
+identifiers
+=====
+
+def main(): MyEnum = false
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type
+      (identifier))
+    (boolean)))
+
+====
+type argument
+=====
+
+def main(): MyEnum[Int32] = false
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type 
+      (identifier)
+      (type_arguments
+        (type_primitive)))
+    (boolean)))
+
+====
+polymorphic
+=====
+
+def main(): a = false
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (polymorphic_identifier)
+    (boolean)))
+
+=====
+function
+=====
+
+def main(): Bool -> Bool = false
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_function
+      (type_primitive)
+      (type_primitive))
+    (boolean)))
+
+=====
+function with effect
+=====
+
+def main(a: Int32 -> Unit \ Pure): Bool -> Bool = false
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters
+      (parameter
+        (identifier)
+        (type_function
+          (type_primitive)
+          (type_primitive)
+          (effect))))
+    (type_function
+      (type_primitive)
+      (type_primitive))
+    (boolean)))
+
+=====
+function with polymorphic effect
+=====
+
+def main(a: Int32 -> Unit \ ef): Bool \ ef = false
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters
+      (parameter
+        (identifier)
+        (type_function
+          (type_primitive)
+          (type_primitive)
+          (polymorphic_effect))))
     (type_primitive)
+    (polymorphic_effect)
     (boolean)))

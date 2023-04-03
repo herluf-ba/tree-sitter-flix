@@ -21,21 +21,22 @@ const PREC = {
     channel: 1
 };
 
+const one_or_more_by = (item, sep) => seq(repeat(seq(item, sep)), item)
+const zero_or_more_by = (item, sep) => optional(one_or_more_by(item, sep))
 // Lists of items seperated by ','
-const one_or_more = (item) => seq(repeat(seq(item, ',')), item)
-const zero_or_more = (item) => optional(one_or_more(item))
+const one_or_more = (item) => one_or_more_by(item, ',')
+const zero_or_more = (item) => zero_or_more_by(item, ',')
 
 module.exports = grammar({
     name: "flix",
 
     // TODO: Block comments
-    extras: $ => [/\s/, $.line_comment],
+    extras: $ => [/\s/, $.comment],
 
     supertypes: $ => [
-      $._expression,
-      $._type,
-      $._literal,
-      $._declaration,
+	$._expression,
+	$._literal,
+	$._declaration,
     ],
 
     rules: {
@@ -55,16 +56,41 @@ module.exports = grammar({
 
 	//////// FUNCTIONS //////////
 	function_declaration: ($) => seq(
+	    optional($.annotations),
 	    "def",
 	    field('name', $._identifier),
+	    optional(field('type_parameters', $.type_parameters)),
 	    field('parameters', $.parameters),
-	    ":",
-	    field('return_type', $._type),
+	    optional(seq( ":", field('return_type', $._type))),
+	    optional(seq('\\', field('effects', $._effects))),
 	    "=",
 	    field('body', $._expression)
 	),
 	parameters: $ => seq('(', zero_or_more($.parameter), ')'),
-	parameter: $ => seq($._identifier, ':', $._type),
+	parameter: $ => seq(
+	    field('name', $._identifier), 
+	    ':', 
+	    field('type', $._type)
+	),
+
+	_effects: $ => choice($.effects, $._effect),
+	effects: $ => seq('{', zero_or_more($._effect), '}'),
+	_effect: $ => choice(
+	    alias($.uppercase_name, $.effect),
+	    alias($.lowercase_name, $.polymorphic_effect)
+	),
+	
+	/////// TYPE PARAMETERS ///////
+	type_parameters: $ => seq('[', zero_or_more($.type_parameter), ']'),
+	type_parameter: $ => seq(
+	    field('name', $._identifier), 
+	    optional(seq(':', field('kind', $.kind)))
+	),
+	kind: $ => choice('Type', 'RecordRow', 'SchemaRow'),
+
+	/////// ANNOTATIONS ///////
+	annotations: $ => repeat1($.annotation),
+	annotation: $ => /@[a-zA-Z][a-zA-Z0-9_]*/,
 
 	/////// EXPRESSIONS ///////
 	_expression: $ => choice(
@@ -99,7 +125,7 @@ module.exports = grammar({
 	    prec.left(PREC.bitwise_shift, 
 		seq($._expression, choice('>>>', '<<<'), $._expression)),
 	    prec.left(PREC.multiply, 
-		seq($._expression, choice('*', '/'), $._expression)),
+		seq($._expression, choice('**', '*', '/', 'mod', 'rem'), $._expression)),
 	    prec.left(PREC.add, 
 		seq($._expression, choice('+', '-'), $._expression)),
 	),
@@ -112,7 +138,6 @@ module.exports = grammar({
 	    $.type_tuple,
 	    $.type_function,
 	    $._type_identifier,
-	    $._generic_identifier,
 	),
 	type_primitive: ($) => choice(
 	    "Unit",
@@ -125,14 +150,32 @@ module.exports = grammar({
 	    "Int32",
 	    "Int64",
 	    "String",
-	    "BitInt",
+	    "BigInt",
 	    "BigDecimal",
 	),
+	_type_identifier: $ => choice(
+	    alias($.lowercase_name, $.polymorphic_identifier),
+	    $.type,
+	),
+	type: $ => seq(
+	    alias($.uppercase_name, $.identifier), 
+	    optional($.type_arguments)
+	),
+	type_arguments: $ => seq('[', one_or_more($._type), ']'),
+
 	type_tuple: $ => seq( '(', one_or_more($._type), ')'),
 	type_function: $ => prec.left(PREC.type_function, 
-	    seq( $._type, '->', $._type)),
+	    seq(
+		$._type, 
+		'->', 
+		$._type,
+		optional(seq('\\', field('effects', $._effects))),
+	    )
+	),
 
 	/////// COMMENTS ////////////
+	// TODO: Doc and block comments
+	comment: $ => $.line_comment,
 	line_comment: $ => token(seq( '//', /.*/)),
 
 	/////// LITERALS //////////
@@ -174,11 +217,10 @@ module.exports = grammar({
 	  ))),
 
 	/////// NAMES ////////
-	_type_identifier: $ => alias($.uppercase_name, $.type_identifier),
-	_generic_identifier: $ => alias($.lowercase_name, $.generic_identifier),
 	_identifier: $ => alias($.lowercase_name, $.identifier),
 	uppercase_name: $ => /_?[A-Z][a-zA-Z0-9_]*/,
 	lowercase_name: $ => /_?[a-z][a-zA-Z0-9_]*/,
+	name: $ => /[a-zA-Z][a-zA-Z0-9_]*/,
 	operator_name: $ => /[\+\-\*<>=!&|\^\$]{2,}/,
 	// TODO: Not sure how to support greek and math names
     },
