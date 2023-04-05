@@ -11,7 +11,7 @@ def main(): Bool = not false
     (identifier)
     (parameters)
     (type_primitive)
-    (unary_expression
+    (unary
       (boolean))))
 
 =====
@@ -27,7 +27,7 @@ def main(): Int32 = -1
     (identifier)
     (parameters)
     (type_primitive)
-    (unary_expression
+    (unary
       (integer))))
 
 =====
@@ -43,7 +43,7 @@ def main(): Bool = true and false
     (identifier)
     (parameters)
     (type_primitive)
-    (binary_expression
+    (binary
       (boolean)
       (boolean))))
 
@@ -60,7 +60,7 @@ def main(): Bool = true or false
     (identifier)
     (parameters)
     (type_primitive)
-    (binary_expression
+    (binary
       (boolean)
       (boolean))))
 
@@ -77,7 +77,7 @@ def main(): Bool = 1 ||| 2
     (identifier)
     (parameters)
     (type_primitive)
-    (binary_expression
+    (binary
       (integer)
       (integer))))
 
@@ -94,7 +94,7 @@ def main(): Int32 = 1 ^^^ 2
     (identifier)
     (parameters)
     (type_primitive)
-    (binary_expression
+    (binary
       (integer)
       (integer))))
 
@@ -111,7 +111,7 @@ def main(): Int32 = 1 &&& 2
     (identifier)
     (parameters)
     (type_primitive)
-    (binary_expression
+    (binary
       (integer)
       (integer))))
 
@@ -128,7 +128,7 @@ def main(): Bool = 1 != 2
     (identifier)
     (parameters)
     (type_primitive)
-    (binary_expression
+    (binary
       (integer)
       (integer))))
 
@@ -145,7 +145,7 @@ def main(): Bool = 1 <= 2
     (identifier)
     (parameters)
     (type_primitive)
-    (binary_expression
+    (binary
       (integer)
       (integer))))
 
@@ -162,7 +162,7 @@ def main(): Bool = 1 <<< 2
     (identifier)
     (parameters)
     (type_primitive)
-    (binary_expression
+    (binary
       (integer)
       (integer))))
 
@@ -179,7 +179,7 @@ def main(): Int32 = 1 * 2
     (identifier)
     (parameters)
     (type_primitive)
-    (binary_expression
+    (binary
       (integer)
       (integer))))
 
@@ -196,7 +196,7 @@ def main(): Int32 = 1 + 2
     (identifier)
     (parameters)
     (type_primitive)
-    (binary_expression
+    (binary
       (integer)
       (integer))))
 
@@ -213,7 +213,7 @@ def main(): Int32 = 1 mod 2
     (identifier)
     (parameters)
     (type_primitive)
-    (binary_expression
+    (binary
       (integer)
       (integer))))
 
@@ -230,7 +230,7 @@ def main(): Int32 = 1 rem 2
     (identifier)
     (parameters)
     (type_primitive)
-    (binary_expression
+    (binary
       (integer)
       (integer))))
 
@@ -247,7 +247,7 @@ def main(): Int32 = 1 ** 2
     (identifier)
     (parameters)
     (type_primitive)
-    (binary_expression
+    (binary
       (integer)
       (integer))))
 
@@ -264,8 +264,8 @@ def main(): Bool = not true and false
     (identifier)
     (parameters)
     (type_primitive)
-    (binary_expression
-      (unary_expression
+    (binary
+      (unary
         (boolean))
       (boolean))))
 
@@ -282,9 +282,9 @@ def main(): Int32 = 1 + 2 * true
     (identifier)
     (parameters)
     (type_primitive)
-    (binary_expression
+    (binary
       (integer)
-      (binary_expression
+      (binary
         (integer)
         (boolean)))))
 
@@ -301,7 +301,7 @@ def main(): Int32 = true |> false
     (identifier)
     (parameters)
     (type_primitive)
-    (binary_expression
+    (binary
       (boolean)
       (user_operator)
       (boolean))))
@@ -319,7 +319,7 @@ def main(): Int32 = true <+> false
     (identifier)
     (parameters)
     (type_primitive)
-    (binary_expression
+    (binary
       (boolean)
       (boolean))))
 
@@ -336,7 +336,7 @@ def main(): Int32 = true `my_func` false
     (identifier)
     (parameters)
     (type_primitive)
-    (binary_expression
+    (binary
       (boolean)
       (infix_function
        (identifier))
@@ -358,8 +358,8 @@ def main(): List[Int32] = 1 :: 2 :: Nil
       (identifier)
       (type_arguments
         (type_primitive)))
-    (binary_expression
-      (binary_expression
+    (binary
+      (binary
         (integer)
         (integer))
       (nil))))
@@ -380,11 +380,11 @@ def main(): List[Int32] = 1 :: Nil ::: 2 :: Nil
       (identifier)
       (type_arguments
         (type_primitive)))
-    (binary_expression
-      (binary_expression
+    (binary
+      (binary
         (integer)
         (nil))
-      (binary_expression
+      (binary
         (integer)
         (nil))
     )))

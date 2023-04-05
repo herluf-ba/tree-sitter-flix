@@ -57,7 +57,7 @@ module.exports = grammar({
 	//////// MODULES ////////////
 	module_declaration: $ => seq(
 	    'mod',
-	    field('name', alias($.uppercase_name, $.identifier)),
+	    field('name', $._uppercase_name),
 	    field('body', alias($.module_body, $.declarations))
 	),
 	module_body: $ => seq('{', repeat($._declaration), '}'),
@@ -77,7 +77,7 @@ module.exports = grammar({
 	    optional($.annotations),
 	    optional($.modifiers),
 	    'enum', 
-	    field('name', alias($.uppercase_name, $.identifier)),
+	    field('name', $._uppercase_name),
 	    optional(field('type_parameters', $.type_parameters)),
 	    field('constructors', $.constructors),
 	),
@@ -85,7 +85,7 @@ module.exports = grammar({
 	constructors: $ => seq('{', zero_or_more($.constructor), '}'),
 	constructor: $ => seq(
 	    'case', 
-	    alias($.uppercase_name, $.identifier), 
+	    $._uppercase_name, 
 	    optional(field('parameters', $.constructor_parameters))
 	),
 	constructor_parameters: $ => seq('(', one_or_more($._type), ')'),
@@ -95,17 +95,17 @@ module.exports = grammar({
 	    optional($.annotations),
 	    optional($.modifiers),
 	    "def",
-	    field('name', $._identifier),
+	    field('name', $._lowercase_name),
 	    optional(field('type_parameters', $.type_parameters)),
 	    field('parameters', $.parameters),
 	    optional(seq( ":", field('return_type', $._type))),
 	    optional(seq('\\', field('effects', $._effects))),
 	    "=",
-	    field('body', $._expression)
+	    field('body', $._stmt)
 	),
 	parameters: $ => seq('(', zero_or_more($.parameter), ')'),
 	parameter: $ => seq(
-	    field('name', $._identifier), 
+	    field('name', $._lowercase_name), 
 	    ':', 
 	    field('type', $._type)
 	),
@@ -120,7 +120,7 @@ module.exports = grammar({
 	/////// TYPE PARAMETERS ///////
 	type_parameters: $ => seq('[', zero_or_more($.type_parameter), ']'),
 	type_parameter: $ => seq(
-	    field('name', $._identifier), 
+	    field('name', $._lowercase_name), 
 	    optional(seq(':', field('kind', $.kind)))
 	),
 	kind: $ => choice('Type', 'RecordRow', 'SchemaRow'),
@@ -130,21 +130,25 @@ module.exports = grammar({
 	annotation: $ => /@[a-zA-Z][a-zA-Z0-9_]*/,
 
 	/////// EXPRESSIONS ///////
+	_stmt: $ => seq(optional(seq($._stmt, ';')), $._expression),
 	_expression: $ => choice(
 	    $._literal,
-	    $.unary_expression,
-	    $.binary_expression,
+	    $.let,
+	    $.region,
+	    $.unary,
+	    $.binary,
 	    $.grouped_expression,
 	    $.tuple_expression
-	    // TODO literally almost the entire language.
 	),
-	unary_expression: $ => prec(PREC.unary, choice(
+	region: $ => seq('region', field('name', $._lowercase_name), '{', field('body', $._stmt), '}'),
+	let: $ => seq('let', $._lowercase_name, '=', $._expression),
+	unary: $ => prec(PREC.unary, choice(
 	    seq('-', $._expression),
 	    seq('+', $._expression),
 	    seq('not', $._expression),
 	    seq('~~~', $._expression),
 	)),
-	binary_expression: $ => choice(
+	binary: $ => choice(
 	    prec.left(PREC.user_defined_op, 
 		seq($._expression, alias($.operator_name, $.user_operator), $._expression)),
 	    prec.left(PREC.composition, 
@@ -178,7 +182,7 @@ module.exports = grammar({
 	),
 	grouped_expression: $ => prec(PREC.group, seq('(', $._expression, ')')),
 	tuple_expression: $ => seq('(', one_or_more($._expression), ')'),
-	infix_function: $ => seq('`', $._identifier, '`'),
+	infix_function: $ => seq('`', $._lowercase_name, '`'),
 
 	/////// TYPES /////////
 	_type: $ => choice(
@@ -188,7 +192,8 @@ module.exports = grammar({
 	    $.type_record,
 	    $._type_identifier,
 	),
-	type_primitive: ($) => choice(
+	type_primitive: $ => seq($._type_primitive, optional($.type_arguments)),
+	_type_primitive: ($) => choice(
 	    "Unit",
 	    "Bool",
 	    "Char",
@@ -201,13 +206,14 @@ module.exports = grammar({
 	    "String",
 	    "BigInt",
 	    "BigDecimal",
+	    "Region"
 	),
 	_type_identifier: $ => choice(
 	    alias($.lowercase_name, $.polymorphic_identifier),
 	    $.type,
 	),
 	type: $ => seq(
-	    alias($.uppercase_name, $.identifier), 
+	    $._uppercase_name, 
 	    optional($.type_arguments)
 	),
 	type_arguments: $ => seq('[', one_or_more($._type), ']'),
@@ -223,10 +229,10 @@ module.exports = grammar({
 	type_record: $ => seq(
 	    '{', 
 	    zero_or_more($.type_record_item), 
-	    optional(seq('|', alias($.lowercase_name, $.identifier))), 
+	    optional(seq('|', $._lowercase_name)), 
 	    '}'
 	),
-	type_record_item: $ => seq(alias($.lowercase_name, $.identifier), '=', $._type),
+	type_record_item: $ => seq($._lowercase_name, '=', $._type),
 
 	/////// COMMENTS ////////////
 	// TODO: Doc and block comments
@@ -265,12 +271,12 @@ module.exports = grammar({
 	record: $ => seq(
 	    '{', 
 	    zero_or_more($.record_item), 
-	    optional(seq('|', alias($.lowercase_name, $.identifier))), 
+	    optional(seq('|', $._lowercase_name)), 
 	    '}'
 	),
 	record_item: $ => choice(
-	    seq('-', alias($.lowercase_name, $.identifier)),
-	    seq(optional('+'), alias($.lowercase_name, $.identifier), '=', $._expression)
+	    seq('-', $._lowercase_name),
+	    seq(optional('+'), $._lowercase_name, '=', $._expression)
 	), 
 
 	// Workaround to https://github.com/tree-sitter/tree-sitter/issues/1156
@@ -303,10 +309,12 @@ module.exports = grammar({
 	),
 
 	/////// NAMES ////////
-	_identifier: $ => alias($.lowercase_name, $.identifier),
 	uppercase_name: $ => /_?[A-Z][a-zA-Z0-9_]*/,
 	lowercase_name: $ => /_?[a-z][a-zA-Z0-9_]*/,
 	name: $ => /[a-zA-Z][a-zA-Z0-9_]*/,
+	_uppercase_name: $ => alias($.uppercase_name, $.identifier),
+	_lowercase_name: $ => alias($.lowercase_name, $.identifier),
+	_name: $ => alias($.name, $.identifier),
 	operator_name: $ => /[\+\-\*<>=!&|\^\$]{2,}/,
 	// TODO: Not sure how to support greek and math names
     },

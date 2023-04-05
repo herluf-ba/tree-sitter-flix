@@ -26,7 +26,7 @@
         "named": true
       },
       {
-        "type": "binary_expression",
+        "type": "binary",
         "named": true
       },
       {
@@ -34,11 +34,19 @@
         "named": true
       },
       {
+        "type": "let",
+        "named": true
+      },
+      {
+        "type": "region",
+        "named": true
+      },
+      {
         "type": "tuple_expression",
         "named": true
       },
       {
-        "type": "unary_expression",
+        "type": "unary",
         "named": true
       }
     ]
@@ -113,7 +121,7 @@
     }
   },
   {
-    "type": "binary_expression",
+    "type": "binary",
     "named": true,
     "fields": {},
     "children": {
@@ -320,9 +328,13 @@
     "named": true,
     "fields": {
       "body": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": ";",
+            "named": false
+          },
           {
             "type": "_expression",
             "named": true
@@ -457,6 +469,25 @@
     "type": "kind",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "let",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "list",
@@ -668,6 +699,36 @@
     }
   },
   {
+    "type": "region",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": ";",
+            "named": false
+          },
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "set",
     "named": true,
     "fields": {},
@@ -864,7 +925,17 @@
   {
     "type": "type_primitive",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "type_arguments",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "type_record",
@@ -960,7 +1031,7 @@
     }
   },
   {
-    "type": "unary_expression",
+    "type": "unary",
     "named": true,
     "fields": {},
     "children": {
@@ -1216,6 +1287,10 @@
     "named": false
   },
   {
+    "type": "Region",
+    "named": false
+  },
+  {
     "type": "SchemaRow",
     "named": false
   },
@@ -1316,6 +1391,10 @@
     "named": false
   },
   {
+    "type": "let",
+    "named": false
+  },
+  {
     "type": "line_comment",
     "named": true
   },
@@ -1353,6 +1432,10 @@
   },
   {
     "type": "pub",
+    "named": false
+  },
+  {
+    "type": "region",
     "named": false
   },
   {

@@ -181,3 +181,21 @@ def main(a: { b = Int32, c = Int32 | r }) = false
           (identifier))))
     (boolean)))
 
+=====
+regions
+=====
+
+def main(r: Region[Int32]) = false
+
+---
+(program
+  (function_declaration
+    (identifier)
+    (parameters
+      (parameter
+        (identifier)
+        (type_primitive
+          (type_arguments
+            (type_primitive)))))
+    (boolean)))
+

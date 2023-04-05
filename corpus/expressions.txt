@@ -1,0 +1,51 @@
+=====
+statements
+=====
+
+def main(): Int32 = 1 + 2; 1
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (binary
+      (integer)
+      (integer))
+    (integer)))
+
+=====
+let
+=====
+def main(): Int32 = let a = 1
+---
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (let
+      (identifier)
+      (integer))))
+
+=====
+region
+=====
+def main() = 
+  region rc {
+    let a = 1;
+    1
+  }
+---
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (region
+      (identifier)
+      (let
+        (identifier)
+        (integer))
+      (integer))))

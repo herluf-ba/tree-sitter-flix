@@ -6,11 +6,11 @@
 "enum"      @keyword
 "case"      @keyword
 ; "class"     @keyword
-; "let"       @keyword
+"let"       @keyword
 ; "if"        @keyword
 ; "else"      @keyword
 ; "match"     @keyword
-; "region"    @keyword
+"region"    @keyword
 ; "with"      @keyword
 ; "inject"    @keyword
 ; "into"      @keyword
@@ -70,7 +70,7 @@
 ; TYPES
 (type_primitive)         @type.builtin
 (polymorphic_identifier) @type
-(type (identifier) @type)
+(type (identifier)       @type)
 
 ; LITERALS
 (integer) @number.integer
