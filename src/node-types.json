@@ -64,7 +64,19 @@
         "named": true
       },
       {
+        "type": "list",
+        "named": true
+      },
+      {
+        "type": "map",
+        "named": true
+      },
+      {
         "type": "nil",
+        "named": true
+      },
+      {
+        "type": "set",
         "named": true
       },
       {
@@ -73,6 +85,10 @@
       },
       {
         "type": "unit",
+        "named": true
+      },
+      {
+        "type": "vector",
         "named": true
       }
     ]
@@ -431,6 +447,51 @@
     "fields": {}
   },
   {
+    "type": "list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "map",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "map_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "map_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "modifier",
     "named": true,
     "fields": {}
@@ -547,6 +608,21 @@
         },
         {
           "type": "use",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "set",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_expression",
           "named": true
         }
       ]
@@ -833,6 +909,21 @@
     }
   },
   {
+    "type": "vector",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "!=",
     "named": false
   },
@@ -889,6 +980,14 @@
     "named": false
   },
   {
+    "type": "::",
+    "named": false
+  },
+  {
+    "type": ":::",
+    "named": false
+  },
+  {
     "type": ";",
     "named": false
   },
@@ -921,6 +1020,10 @@
     "named": false
   },
   {
+    "type": "=>",
+    "named": false
+  },
+  {
     "type": ">",
     "named": false
   },
@@ -930,6 +1033,10 @@
   },
   {
     "type": ">>>",
+    "named": false
+  },
+  {
+    "type": "Array#",
     "named": false
   },
   {
@@ -973,11 +1080,23 @@
     "named": false
   },
   {
+    "type": "List#",
+    "named": false
+  },
+  {
+    "type": "Map#",
+    "named": false
+  },
+  {
     "type": "RecordRow",
     "named": false
   },
   {
     "type": "SchemaRow",
+    "named": false
+  },
+  {
+    "type": "Set#",
     "named": false
   },
   {
@@ -990,6 +1109,10 @@
   },
   {
     "type": "Unit",
+    "named": false
+  },
+  {
+    "type": "Vector#",
     "named": false
   },
   {

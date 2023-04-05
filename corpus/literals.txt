@@ -88,3 +88,88 @@ def main(): Char = 'a'
     (type_primitive)
     (char)))
 
+=====
+list
+=====
+
+def main(): List[Int32] = List#{1, 2}
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type
+      (identifier)
+      (type_arguments
+        (type_primitive)))
+    (list
+      (integer)
+      (integer))))
+
+=====
+vector
+=====
+
+def main(): Vector[Int32] = Vector#{1, 2}
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type
+      (identifier)
+      (type_arguments
+        (type_primitive)))
+    (vector
+      (integer)
+      (integer))))
+
+=====
+set
+=====
+
+def main(): Set[Int32] = Set#{1, 2}
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type
+      (identifier)
+      (type_arguments
+        (type_primitive)))
+    (set
+      (integer)
+      (integer))))
+
+=====
+map
+=====
+
+def main(): Map[String, Int32] = Map#{"a" => 1, "b" => 2}
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type
+      (identifier)
+      (type_arguments
+        (type_primitive)
+        (type_primitive)))
+    (map
+      (map_item
+        (string)
+        (integer))
+      (map_item
+        (string)
+        (integer)))))
+

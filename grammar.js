@@ -3,23 +3,25 @@ const PREC = {
     type_function: 2,
     type_identifier: 1,
     
-    field: 18,
-    call: 17,
-    group: 16,
-    unary: 15,
-    user_defined_op: 14,
-    infix_function: 13,
-    composition: 12,
-    multiply: 11,
-    add: 10,
-    bitwise_shift: 9,
-    comparison: 8,
-    equality: 7,
-    bitwise_and: 6,
-    bitwise_xor: 5,
-    bitwise_or: 4,
-    and: 3,
-    or: 2,
+    field: 20,
+    call: 19,
+    group: 18,
+    unary: 17,
+    user_defined_op: 16,
+    infix_function: 15,
+    composition: 14,
+    multiply: 13,
+    add: 12,
+    bitwise_shift: 11,
+    comparison: 10,
+    equality: 9,
+    bitwise_and: 8,
+    bitwise_xor: 7,
+    bitwise_or: 6,
+    and: 5,
+    or: 4,
+    cons: 3,
+    append: 2,
     channel: 1
 };
 
@@ -54,7 +56,7 @@ module.exports = grammar({
 
 	//////// MODULES ////////////
 	module_declaration: $ => seq(
-	    choice('mod', 'namespace'),
+	    'mod',
 	    field('name', alias($.uppercase_name, $.identifier)),
 	    field('body', alias($.module_body, $.declarations))
 	),
@@ -169,6 +171,10 @@ module.exports = grammar({
 		seq($._expression, choice('**', '*', '/', 'mod', 'rem'), $._expression)),
 	    prec.left(PREC.add, 
 		seq($._expression, choice('+', '-'), $._expression)),
+	    prec.left(PREC.cons, 
+		seq($._expression, choice('::'), $._expression)),
+	    prec.left(PREC.append, 
+		seq($._expression, choice(':::'), $._expression)),
 	),
 	grouped_expression: $ => prec(PREC.group, seq('(', $._expression, ')')),
 	tuple_expression: $ => seq('(', one_or_more($._expression), ')'),
@@ -229,7 +235,11 @@ module.exports = grammar({
 	    $.float,
 	    $.boolean,
 	    $.char,
-	    $.string
+	    $.string,
+	    $.list,
+	    $.vector,
+	    $.set,
+	    $.map
 	),
 	nil: $ => /Nil/,
 	unit: $ => seq('(', ')'),
@@ -238,6 +248,12 @@ module.exports = grammar({
 	boolean: ($) => choice('true', 'false'),
 	char: $ => /'[a-zA-Z]'/,
 	string: $ => seq( '"', repeat(choice( $._string_fragment, $._escape_sequence,)), '"',),
+	list: $ => seq('List#', '{', zero_or_more($._expression), '}'),
+	vector: $ => seq('Vector#', '{', zero_or_more($._expression), '}'),
+	set: $ => seq('Set#', '{', zero_or_more($._expression), '}'),
+	array: $ => seq('Array#', '{', zero_or_more($._expression), '}'),
+	map: $ => seq('Map#', '{', zero_or_more($.map_item), '}'),
+	map_item: $ => seq($._expression, '=>', $._expression),
 
 	// Workaround to https://github.com/tree-sitter/tree-sitter/issues/1156
 	// We give names to the token_ constructs containing a regexp

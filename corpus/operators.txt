@@ -342,4 +342,51 @@ def main(): Int32 = true `my_func` false
        (identifier))
       (boolean))))
 
+=====
+cons
+=====
+
+def main(): List[Int32] = 1 :: 2 :: Nil
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type
+      (identifier)
+      (type_arguments
+        (type_primitive)))
+    (binary_expression
+      (binary_expression
+        (integer)
+        (integer))
+      (nil))))
+
+=====
+append
+=====
+
+def main(): List[Int32] = 1 :: Nil ::: 2 :: Nil
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type
+      (identifier)
+      (type_arguments
+        (type_primitive)))
+    (binary_expression
+      (binary_expression
+        (integer)
+        (nil))
+      (binary_expression
+        (integer)
+        (nil))
+    )))
+
 

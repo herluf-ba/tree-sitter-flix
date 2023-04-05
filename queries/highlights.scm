@@ -18,7 +18,6 @@
 ; "select"    @keyword
 ; "from"      @keyword
 ; "spawn"     @keyword
-"namespace" @keyword
 "mod"       @keyword
 "use"       @keyword
 ; "for"       @keyword
@@ -81,6 +80,11 @@
 (boolean) @constant.builtin
 (nil)     @constant.builtin
 (unit)    @constant.builtin
+(map)     @constant.builtin
+(list)    @constant.builtin
+(set)     @constant.builtin
+(vector)  @constant.builtin
+
 
 ; PUNCTUATION
 "["  @punctuation.bracket
@@ -94,6 +98,7 @@
 ":"  @punctuation.delimiter
 "\\" @punctuation.delimiter
 "->" @punctuation
+"=>" @punctuation.delimiter
 
 ; ENUMS
 (enum_declaration name: (identifier) @type.definition)
@@ -101,7 +106,6 @@
 
 ; MODULES
 (module_declaration name: (identifier) @namespace)
-
 
 ; FUNCTIONS
 (function_declaration name: (identifier) @function)
