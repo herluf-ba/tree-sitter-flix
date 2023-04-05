@@ -4,7 +4,7 @@ const PREC = {
     type_identifier: 1,
     
     field: 20,
-    call: 19,
+    deref: 19,
     group: 18,
     unary: 17,
     user_defined_op: 16,
@@ -22,7 +22,7 @@ const PREC = {
     or: 4,
     cons: 3,
     append: 2,
-    channel: 1
+    assign: 1
 };
 
 const one_or_more_by = (item, sep) => seq(repeat(seq(item, sep)), item)
@@ -66,11 +66,11 @@ module.exports = grammar({
 	    $.use_path
 	),
 	use_path: $ => prec(PREC.field, seq(
-	    choice( alias($.name, $.identifier), $.use_path),
+	    choice( $._name, $.use_path),
 	    '.',
-	    choice($.use_set, alias($.name, $.identifier))
+	    choice($.use_set, $._name)
 	)),
-	use_set: $ => seq('{', zero_or_more(alias($.name, $.identifier)), '}'),
+	use_set: $ => seq('{', zero_or_more($._name), '}'),
 
 	//////// ENUMS //////////////
 	enum_declaration: $ => seq(
@@ -133,13 +133,26 @@ module.exports = grammar({
 	_stmt: $ => seq(optional(seq($._stmt, ';')), $._expression),
 	_expression: $ => choice(
 	    $._literal,
+	    $._lowercase_name,
 	    $.let,
+	    $.field,
+	    $.ref,
+	    $.deref,
+	    $.assign,
 	    $.region,
 	    $.unary,
 	    $.binary,
 	    $.grouped_expression,
 	    $.tuple_expression
 	),
+	field: $ => prec(PREC.field, seq(
+	    choice( $._name, $.field),
+	    '.',
+	    $._name
+	)),
+	ref: $ => seq('ref', $._expression, '@', $._lowercase_name),
+	deref: $ => prec(PREC.deref, seq('deref', $._expression)),
+	assign: $ => prec.left(PREC.assign, seq($._expression, ':=', $._expression)),
 	region: $ => seq('region', field('name', $._lowercase_name), '{', field('body', $._stmt), '}'),
 	let: $ => seq('let', $._lowercase_name, '=', $._expression),
 	unary: $ => prec(PREC.unary, choice(
@@ -265,7 +278,7 @@ module.exports = grammar({
 	list: $ => seq('List#', '{', zero_or_more($._expression), '}'),
 	vector: $ => seq('Vector#', '{', zero_or_more($._expression), '}'),
 	set: $ => seq('Set#', '{', zero_or_more($._expression), '}'),
-	array: $ => seq('Array#', '{', zero_or_more($._expression), '}'),
+	array: $ => seq('Array#', '{', zero_or_more($._expression), '}', "@", $._lowercase_name),
 	map: $ => seq('Map#', '{', zero_or_more($.map_item), '}'),
 	map_item: $ => seq($._expression, '=>', $._expression),
 	record: $ => seq(

@@ -127,13 +127,8 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "ALIAS",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "name"
-                },
-                "named": true,
-                "value": "identifier"
+                "type": "SYMBOL",
+                "name": "_name"
               },
               {
                 "type": "SYMBOL",
@@ -153,13 +148,8 @@
                 "name": "use_set"
               },
               {
-                "type": "ALIAS",
-                "content": {
-                  "type": "SYMBOL",
-                  "name": "name"
-                },
-                "named": true,
-                "value": "identifier"
+                "type": "SYMBOL",
+                "name": "_name"
               }
             ]
           }
@@ -185,13 +175,8 @@
                     "type": "SEQ",
                     "members": [
                       {
-                        "type": "ALIAS",
-                        "content": {
-                          "type": "SYMBOL",
-                          "name": "name"
-                        },
-                        "named": true,
-                        "value": "identifier"
+                        "type": "SYMBOL",
+                        "name": "_name"
                       },
                       {
                         "type": "STRING",
@@ -201,13 +186,8 @@
                   }
                 },
                 {
-                  "type": "ALIAS",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "name"
-                  },
-                  "named": true,
-                  "value": "identifier"
+                  "type": "SYMBOL",
+                  "name": "_name"
                 }
               ]
             },
@@ -831,7 +811,27 @@
         },
         {
           "type": "SYMBOL",
+          "name": "_lowercase_name"
+        },
+        {
+          "type": "SYMBOL",
           "name": "let"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "field"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ref"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "deref"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "assign"
         },
         {
           "type": "SYMBOL",
@@ -854,6 +854,95 @@
           "name": "tuple_expression"
         }
       ]
+    },
+    "field": {
+      "type": "PREC",
+      "value": 20,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_name"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "field"
+              }
+            ]
+          },
+          {
+            "type": "STRING",
+            "value": "."
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_name"
+          }
+        ]
+      }
+    },
+    "ref": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "ref"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_expression"
+        },
+        {
+          "type": "STRING",
+          "value": "@"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_lowercase_name"
+        }
+      ]
+    },
+    "deref": {
+      "type": "PREC",
+      "value": 19,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "deref"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
+        ]
+      }
+    },
+    "assign": {
+      "type": "PREC_LEFT",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_expression"
+          },
+          {
+            "type": "STRING",
+            "value": ":="
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_expression"
+          }
+        ]
+      }
     },
     "region": {
       "type": "SEQ",
@@ -2139,6 +2228,14 @@
         {
           "type": "STRING",
           "value": "}"
+        },
+        {
+          "type": "STRING",
+          "value": "@"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_lowercase_name"
         }
       ]
     },

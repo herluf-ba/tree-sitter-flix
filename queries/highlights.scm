@@ -11,13 +11,13 @@
 ; "else"      @keyword
 ; "match"     @keyword
 "region"    @keyword
+"ref"   @keyword
+"deref" @keyword
 ; "with"      @keyword
 ; "inject"    @keyword
 ; "into"      @keyword
 ; "query"     @keyword
 ; "select"    @keyword
-; "from"      @keyword
-; "spawn"     @keyword
 "mod"       @keyword
 "use"       @keyword
 ; "for"       @keyword
@@ -37,13 +37,14 @@
 ; "instance"  @keyword
 
 ; OPERATORS
-"not" @keyword.operator
-"and" @keyword.operator
-"or"  @keyword.operator
+"not"   @keyword.operator
+"and"   @keyword.operator
+"or"    @keyword.operator
+"mod"   @keyword.operator
+"rem"   @keyword.operator
+; "spawn"      @keyword.operator
 ; "lazy"      @keyword.operator
 ; "force"     @keyword.operator
-; "ref"       @keyword.operator
-; "deref"     @keyword.operator
 "|||" @operator
 "^^^" @operator
 "&&&" @operator
@@ -59,11 +60,10 @@
 ">="  @operator
 "*"   @operator
 "**"  @operator
-"mod" @operator
-"rem" @operator
 "/"   @operator
 "+"   @operator
 "-"   @operator
+"@"   @operator
 (user_operator)   @operator
 (infix_function)  @operator
 

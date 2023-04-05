@@ -22,7 +22,7 @@ Note that this is not an LSP, so it wont provide features like go-to-definition,
 - [ ] use statements
 - [x] cons (::) and append (:::)
 - [x] List, Set, Map, Chain, Vector and Array litterals
-- [ ] Record literals and types
+- [x] Record literals and types
 - [ ] match lambdas
 - [ ] Datalog constraints
 - [ ] keywords from (this)[https://doc.flix.dev/identifiers.html]

@@ -1,4 +1,21 @@
 =====
+fields
+=====
+
+def main(): Int32 = Math.x
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (field
+      (identifier)
+      (identifier))))
+
+=====
 statements
 =====
 
@@ -48,4 +65,43 @@ def main() =
       (let
         (identifier)
         (integer))
+      (integer))))
+
+=====
+ref
+=====
+def main() = 
+  ref 0 @ rc
+---
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (ref
+      (integer)
+      (identifier))))
+
+=====
+deref
+=====
+def main() = deref a
+---
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (deref
+      (identifier))))
+
+=====
+assign
+=====
+def main() = a := 1
+---
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (assign
+      (identifier)
       (integer))))

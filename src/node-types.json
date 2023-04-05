@@ -26,7 +26,19 @@
         "named": true
       },
       {
+        "type": "assign",
+        "named": true
+      },
+      {
         "type": "binary",
+        "named": true
+      },
+      {
+        "type": "deref",
+        "named": true
+      },
+      {
+        "type": "field",
         "named": true
       },
       {
@@ -34,7 +46,15 @@
         "named": true
       },
       {
+        "type": "identifier",
+        "named": true
+      },
+      {
         "type": "let",
+        "named": true
+      },
+      {
+        "type": "ref",
         "named": true
       },
       {
@@ -115,6 +135,21 @@
       "types": [
         {
           "type": "annotation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "assign",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
           "named": true
         }
       ]
@@ -255,6 +290,21 @@
     }
   },
   {
+    "type": "deref",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "effects",
     "named": true,
     "fields": {},
@@ -318,6 +368,25 @@
         },
         {
           "type": "modifiers",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "field",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "field",
+          "named": true
+        },
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -480,10 +549,6 @@
       "types": [
         {
           "type": "_expression",
-          "named": true
-        },
-        {
-          "type": "identifier",
           "named": true
         }
       ]
@@ -690,9 +755,20 @@
         {
           "type": "_expression",
           "named": true
-        },
+        }
+      ]
+    }
+  },
+  {
+    "type": "ref",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
         {
-          "type": "identifier",
+          "type": "_expression",
           "named": true
         }
       ]
@@ -1183,6 +1259,10 @@
     "named": false
   },
   {
+    "type": ":=",
+    "named": false
+  },
+  {
     "type": ";",
     "named": false
   },
@@ -1228,6 +1308,10 @@
   },
   {
     "type": ">>>",
+    "named": false
+  },
+  {
+    "type": "@",
     "named": false
   },
   {
@@ -1355,6 +1439,10 @@
     "named": false
   },
   {
+    "type": "deref",
+    "named": false
+  },
+  {
     "type": "effect",
     "named": true
   },
@@ -1432,6 +1520,10 @@
   },
   {
     "type": "pub",
+    "named": false
+  },
+  {
+    "type": "ref",
     "named": false
   },
   {
