@@ -76,6 +76,10 @@
         "named": true
       },
       {
+        "type": "record",
+        "named": true
+      },
+      {
         "type": "set",
         "named": true
       },
@@ -199,6 +203,10 @@
         },
         {
           "type": "type_primitive",
+          "named": true
+        },
+        {
+          "type": "type_record",
           "named": true
         },
         {
@@ -377,6 +385,10 @@
           },
           {
             "type": "type_primitive",
+            "named": true
+          },
+          {
+            "type": "type_record",
             "named": true
           },
           {
@@ -572,6 +584,10 @@
             "named": true
           },
           {
+            "type": "type_record",
+            "named": true
+          },
+          {
             "type": "type_tuple",
             "named": true
           }
@@ -608,6 +624,44 @@
         },
         {
           "type": "use",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "record",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "record_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "record_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
           "named": true
         }
       ]
@@ -702,6 +756,10 @@
           "named": true
         },
         {
+          "type": "type_record",
+          "named": true
+        },
+        {
           "type": "type_tuple",
           "named": true
         }
@@ -749,6 +807,10 @@
         },
         {
           "type": "type_primitive",
+          "named": true
+        },
+        {
+          "type": "type_record",
           "named": true
         },
         {
@@ -805,6 +867,64 @@
     "fields": {}
   },
   {
+    "type": "type_record",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "type_record_item",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_record_item",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "polymorphic_identifier",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "type_function",
+          "named": true
+        },
+        {
+          "type": "type_primitive",
+          "named": true
+        },
+        {
+          "type": "type_record",
+          "named": true
+        },
+        {
+          "type": "type_tuple",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "type_tuple",
     "named": true,
     "fields": {},
@@ -826,6 +946,10 @@
         },
         {
           "type": "type_primitive",
+          "named": true
+        },
+        {
+          "type": "type_record",
           "named": true
         },
         {
@@ -1200,10 +1324,6 @@
     "named": false
   },
   {
-    "type": "namespace",
-    "named": false
-  },
-  {
     "type": "nil",
     "named": true
   },
@@ -1257,6 +1377,10 @@
   },
   {
     "type": "{",
+    "named": false
+  },
+  {
+    "type": "|",
     "named": false
   },
   {

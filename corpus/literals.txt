@@ -173,3 +173,79 @@ def main(): Map[String, Int32] = Map#{"a" => 1, "b" => 2}
         (string)
         (integer)))))
 
+=====
+record
+=====
+
+def main(): Unit = { a = 1, b = 2}
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (record
+      (record_item
+        (identifier)
+        (integer))
+      (record_item
+        (identifier)
+        (integer)))))
+
+=====
+record extension 
+=====
+
+def main(): Unit = { +a = 1 | r}
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (record
+      (record_item
+        (identifier)
+        (integer))
+      (identifier))))
+
+=====
+record spread
+=====
+
+def main(): Unit = { a = 1 | r}
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (record
+      (record_item
+        (identifier)
+        (integer))
+      (identifier))))
+
+=====
+record restriction
+=====
+
+def main(): Unit = { -a | r}
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (record
+      (record_item
+        (identifier))
+      (identifier))))

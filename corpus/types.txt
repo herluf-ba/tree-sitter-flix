@@ -135,3 +135,49 @@ def main(a: Int32 -> Unit \ ef): Bool \ ef = false
     (type_primitive)
     (polymorphic_effect)
     (boolean)))
+
+=====
+closed record
+=====
+
+def main(): { b = Int32, c = Int32 } = false
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_record
+      (type_record_item
+        (identifier)
+        (type_primitive))
+      (type_record_item
+        (identifier)
+        (type_primitive)))
+    (boolean)))
+
+=====
+row polymorphism
+=====
+
+def main(a: { b = Int32, c = Int32 | r }) = false
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (parameters
+      (parameter
+        (identifier)
+        (type_record
+          (type_record_item
+            (identifier)
+            (type_primitive))
+          (type_record_item
+            (identifier)
+            (type_primitive))
+          (identifier))))
+    (boolean)))
+

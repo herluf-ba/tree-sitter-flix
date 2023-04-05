@@ -185,6 +185,7 @@ module.exports = grammar({
 	    $.type_primitive,
 	    $.type_tuple,
 	    $.type_function,
+	    $.type_record,
 	    $._type_identifier,
 	),
 	type_primitive: ($) => choice(
@@ -210,7 +211,6 @@ module.exports = grammar({
 	    optional($.type_arguments)
 	),
 	type_arguments: $ => seq('[', one_or_more($._type), ']'),
-
 	type_tuple: $ => seq( '(', one_or_more($._type), ')'),
 	type_function: $ => prec.left(PREC.type_function, 
 	    seq(
@@ -220,6 +220,13 @@ module.exports = grammar({
 		optional(seq('\\', field('effects', $._effects))),
 	    )
 	),
+	type_record: $ => seq(
+	    '{', 
+	    zero_or_more($.type_record_item), 
+	    optional(seq('|', alias($.lowercase_name, $.identifier))), 
+	    '}'
+	),
+	type_record_item: $ => seq(alias($.lowercase_name, $.identifier), '=', $._type),
 
 	/////// COMMENTS ////////////
 	// TODO: Doc and block comments
@@ -239,7 +246,8 @@ module.exports = grammar({
 	    $.list,
 	    $.vector,
 	    $.set,
-	    $.map
+	    $.map,
+	    $.record
 	),
 	nil: $ => /Nil/,
 	unit: $ => seq('(', ')'),
@@ -254,6 +262,16 @@ module.exports = grammar({
 	array: $ => seq('Array#', '{', zero_or_more($._expression), '}'),
 	map: $ => seq('Map#', '{', zero_or_more($.map_item), '}'),
 	map_item: $ => seq($._expression, '=>', $._expression),
+	record: $ => seq(
+	    '{', 
+	    zero_or_more($.record_item), 
+	    optional(seq('|', alias($.lowercase_name, $.identifier))), 
+	    '}'
+	),
+	record_item: $ => choice(
+	    seq('-', alias($.lowercase_name, $.identifier)),
+	    seq(optional('+'), alias($.lowercase_name, $.identifier), '=', $._expression)
+	), 
 
 	// Workaround to https://github.com/tree-sitter/tree-sitter/issues/1156
 	// We give names to the token_ constructs containing a regexp
