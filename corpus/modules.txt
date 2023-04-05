@@ -1,0 +1,44 @@
+=====
+basic
+=====
+
+mod MyModule {
+  def my_func() = false
+}
+
+---
+
+(program
+  (module_declaration
+    (identifier)
+    (declarations
+      (function_declaration
+        (identifier)
+        (parameters)
+        (boolean)))))
+
+=====
+top level use
+=====
+use Math.sum;
+
+---
+(program
+  (use
+    (use_path
+      (identifier)
+      (identifier))))
+
+=====
+top level use set
+=====
+use Math.{sum, add};
+
+---
+(program
+  (use
+    (use_path
+      (identifier)
+      (use_set
+        (identifier)
+        (identifier)))))

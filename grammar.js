@@ -2,7 +2,9 @@
 const PREC = {
     type_function: 2,
     type_identifier: 1,
-
+    
+    field: 18,
+    call: 17,
     group: 16,
     unary: 15,
     user_defined_op: 14,
@@ -30,7 +32,6 @@ const zero_or_more = (item) => zero_or_more_by(item, ',')
 module.exports = grammar({
     name: "flix",
 
-    // TODO: Block comments
     extras: $ => [/\s/, $.comment],
 
     supertypes: $ => [
@@ -40,16 +41,39 @@ module.exports = grammar({
     ],
 
     rules: {
-	program: ($) => repeat($._declaration),
+	program: ($) => seq(
+	    repeat(seq($.use, optional(';'))),
+	    repeat($._declaration)
+	),
 
 	_declaration: ($) => choice(
 	    $.function_declaration,
 	    $.enum_declaration,
-	    // TODO: enums, type classes, modules, comments, use's
+	    $.module_declaration,
 	),
+
+	//////// MODULES ////////////
+	module_declaration: $ => seq(
+	    choice('mod', 'namespace'),
+	    field('name', alias($.uppercase_name, $.identifier)),
+	    field('body', alias($.module_body, $.declarations))
+	),
+	module_body: $ => seq('{', repeat($._declaration), '}'),
+	use: $ => seq(
+	    'use',
+	    $.use_path
+	),
+	use_path: $ => prec(PREC.field, seq(
+	    choice( alias($.name, $.identifier), $.use_path),
+	    '.',
+	    choice($.use_set, alias($.name, $.identifier))
+	)),
+	use_set: $ => seq('{', zero_or_more(alias($.name, $.identifier)), '}'),
 
 	//////// ENUMS //////////////
 	enum_declaration: $ => seq(
+	    optional($.annotations),
+	    optional($.modifiers),
 	    'enum', 
 	    field('name', alias($.uppercase_name, $.identifier)),
 	    optional(field('type_parameters', $.type_parameters)),
@@ -67,6 +91,7 @@ module.exports = grammar({
 	//////// FUNCTIONS //////////
 	function_declaration: ($) => seq(
 	    optional($.annotations),
+	    optional($.modifiers),
 	    "def",
 	    field('name', $._identifier),
 	    optional(field('type_parameters', $.type_parameters)),
@@ -232,6 +257,16 @@ module.exports = grammar({
 	    /u[0-9a-fA-F]{4}/,
 	    /u{[0-9a-fA-F]+}/,
 	  ))),
+
+	modifiers: $ => repeat1($.modifier),
+	modifier: $ => choice(
+	    'pub',
+	    'inline',
+	    'lawful',
+	    'opaque',
+	    'override',
+	    'sealed'
+	),
 
 	/////// NAMES ////////
 	_identifier: $ => alias($.lowercase_name, $.identifier),

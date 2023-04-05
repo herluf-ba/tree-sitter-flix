@@ -10,6 +10,10 @@
       {
         "type": "function_declaration",
         "named": true
+      },
+      {
+        "type": "module_declaration",
+        "named": true
       }
     ]
   },
@@ -204,6 +208,21 @@
     }
   },
   {
+    "type": "declarations",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "effects",
     "named": true,
     "fields": {},
@@ -256,6 +275,20 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "annotations",
+          "named": true
+        },
+        {
+          "type": "modifiers",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -348,11 +381,15 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": false,
       "types": [
         {
           "type": "annotations",
+          "named": true
+        },
+        {
+          "type": "modifiers",
           "named": true
         }
       ]
@@ -392,6 +429,52 @@
     "type": "kind",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "modifier",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "modifiers",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "modifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "module_declaration",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "declarations",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "parameter",
@@ -460,6 +543,10 @@
       "types": [
         {
           "type": "_declaration",
+          "named": true
+        },
+        {
+          "type": "use",
           "named": true
         }
       ]
@@ -693,6 +780,59 @@
     "fields": {}
   },
   {
+    "type": "use",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "use_path",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "use_path",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "use_path",
+          "named": true
+        },
+        {
+          "type": "use_set",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "use_set",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "!=",
     "named": false
   },
@@ -737,11 +877,19 @@
     "named": false
   },
   {
+    "type": ".",
+    "named": false
+  },
+  {
     "type": "/",
     "named": false
   },
   {
     "type": ":",
+    "named": false
+  },
+  {
+    "type": ";",
     "named": false
   },
   {
@@ -909,8 +1057,16 @@
     "named": true
   },
   {
+    "type": "inline",
+    "named": false
+  },
+  {
     "type": "integer",
     "named": true
+  },
+  {
+    "type": "lawful",
+    "named": false
   },
   {
     "type": "line_comment",
@@ -918,6 +1074,10 @@
   },
   {
     "type": "mod",
+    "named": false
+  },
+  {
+    "type": "namespace",
     "named": false
   },
   {
@@ -929,7 +1089,15 @@
     "named": false
   },
   {
+    "type": "opaque",
+    "named": false
+  },
+  {
     "type": "or",
+    "named": false
+  },
+  {
+    "type": "override",
     "named": false
   },
   {
@@ -941,11 +1109,23 @@
     "named": true
   },
   {
+    "type": "pub",
+    "named": false
+  },
+  {
     "type": "rem",
     "named": false
   },
   {
+    "type": "sealed",
+    "named": false
+  },
+  {
     "type": "true",
+    "named": false
+  },
+  {
+    "type": "use",
     "named": false
   },
   {

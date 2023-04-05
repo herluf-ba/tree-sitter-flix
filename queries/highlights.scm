@@ -18,21 +18,24 @@
 ; "select"    @keyword
 ; "from"      @keyword
 ; "spawn"     @keyword
-; "namespace" @keyword
-; "mod"       @keyword
-; "use"       @keyword
+"namespace" @keyword
+"mod"       @keyword
+"use"       @keyword
 ; "for"       @keyword
 ; "forM"      @keyword
 ; "forA"      @keyword
 ; "foreach"   @keyword
-; "pub"       @keyword
+"pub"       @keyword
+"override"  @keyword
+"sealed"    @keyword
+"inline"    @keyword
+"lawful"    @keyword
+"opaque"    @keyword
 ; "yield"     @keyword
 ; "par"       @keyword
 ; "class"     @keyword
 ; "law"       @keyword
-; "override"  @keyword
 ; "instance"  @keyword
-; "sealed"    @keyword
 
 ; OPERATORS
 "not" @keyword.operator
@@ -86,15 +89,19 @@
 "}"  @punctuation.bracket
 "("  @punctuation.bracket
 ")"  @punctuation.bracket
-; "."  @punctuation.delimiter
+"."  @punctuation.delimiter
 ","  @punctuation.delimiter
 ":"  @punctuation.delimiter
 "\\" @punctuation.delimiter
 "->" @punctuation
 
-; FUNCTIONS
+; ENUMS
 (enum_declaration name: (identifier) @type.definition)
 (constructor (identifier) @type.definition)
+
+; MODULES
+(module_declaration name: (identifier) @namespace)
+
 
 ; FUNCTIONS
 (function_declaration name: (identifier) @function)
