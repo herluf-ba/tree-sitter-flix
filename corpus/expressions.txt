@@ -48,6 +48,20 @@ def main(): Int32 = let a = 1
       (integer))))
 
 =====
+let with type
+=====
+def main(): Int32 = let a: Int32 = 1
+---
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (let
+      (identifier)
+      (type_primitive)
+      (integer))))
+=====
 region
 =====
 def main() = 
@@ -105,3 +119,174 @@ def main() = a := 1
     (assign
       (identifier)
       (integer))))
+
+=====
+if
+=====
+def main() = if (true) 1 else 2
+---
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (if
+      (boolean)
+      (integer)
+      (integer))))
+
+=====
+foreach
+=====
+def main() = foreach(item <- items) item
+---
+(program
+    (function_declaration
+      (identifier)
+      (parameters)
+      (foreach
+        (gets
+          (identifier)
+          (identifier))
+        (identifier))))
+
+=====
+foreach with block
+=====
+def main() = foreach(item <- items) {item}
+---
+(program
+    (function_declaration
+      (identifier)
+      (parameters)
+      (foreach
+        (gets
+          (identifier)
+          (identifier))
+        (block 
+          (identifier)))))
+
+=====
+foreach multiple
+=====
+def main() = foreach(item <- items; other <- others) item
+---
+(program
+    (function_declaration
+      (identifier)
+      (parameters)
+      (foreach
+        (gets
+          (identifier)
+          (identifier))
+        (gets
+          (identifier)
+          (identifier))
+        (identifier))))
+
+=====
+foreach multiple with filter
+=====
+def main() = foreach(item <- items; if item > 10; other <- others) item
+---
+(program
+    (function_declaration
+      (identifier)
+      (parameters)
+      (foreach
+        (gets
+          (identifier)
+          (identifier))
+        (filter
+          (binary
+            (identifier)
+            (integer)))
+        (gets
+          (identifier)
+          (identifier))
+        (identifier))))
+
+=====
+foreach yield
+=====
+def main() = foreach(item <- items; if item > 10; other <- others) yield (item, other)
+---
+(program
+    (function_declaration
+      (identifier)
+      (parameters)
+      (foreach
+        (gets
+          (identifier)
+          (identifier))
+        (filter
+          (binary
+            (identifier)
+            (integer)))
+        (gets
+          (identifier)
+          (identifier))
+        (tuple
+          (identifier)
+          (identifier)))))
+
+=====
+for monadic
+=====
+def main() = forM(item <- items; if item > 10; other <- others) yield (item, other)
+---
+(program
+    (function_declaration
+      (identifier)
+      (parameters)
+      (for_monadic
+        (gets
+          (identifier)
+          (identifier))
+        (filter
+          (binary
+            (identifier)
+            (integer)))
+        (gets
+          (identifier)
+          (identifier))
+        (tuple
+          (identifier)
+          (identifier)))))
+=====
+for applicative
+=====
+def main() = forA(item <- items; if item > 10; other <- others) yield (item, other)
+---
+(program
+    (function_declaration
+      (identifier)
+      (parameters)
+      (for_applicative
+        (gets
+          (identifier)
+          (identifier))
+        (filter
+          (binary
+            (identifier)
+            (integer)))
+        (gets
+          (identifier)
+          (identifier))
+        (tuple
+          (identifier)
+          (identifier)))))
+=====
+block
+=====
+def main(): Int32 = let a = { 1 }
+---
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (let
+      (identifier)
+      (block
+        (integer)))))
+

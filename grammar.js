@@ -134,6 +134,11 @@ module.exports = grammar({
 	_expression: $ => choice(
 	    $._literal,
 	    $._lowercase_name,
+	    $.block,
+	    $.if,
+	    $.for_monadic,
+	    $.for_applicative,
+	    $.foreach,
 	    $.let,
 	    $.field,
 	    $.ref,
@@ -142,19 +147,50 @@ module.exports = grammar({
 	    $.region,
 	    $.unary,
 	    $.binary,
-	    $.grouped_expression,
-	    $.tuple_expression
+	    $.group,
+	    $.tuple
 	),
+	block: $ => seq('{', $._stmt, '}'),
 	field: $ => prec(PREC.field, seq(
 	    choice( $._name, $.field),
 	    '.',
 	    $._name
 	)),
+	for_applicative: $ => seq(
+	    'forA', 
+	    '(', 
+	    zero_or_more_by(choice($.gets, $.filter), ';'),
+	    ')',  
+	    'yield',
+	    $._expression
+	),
+	for_monadic: $ => seq(
+	    'forM', 
+	    '(', 
+	    zero_or_more_by(choice($.gets, $.filter), ';'),
+	    ')',  
+	    'yield',
+	    $._expression
+	),
+	foreach: $ => seq(
+	    'foreach', 
+	    '(', 
+	    zero_or_more_by(choice($.gets, $.filter), ';'),
+	    ')',  
+	    $._foreach_body
+	),
+	_foreach_body: $ => choice(
+	    seq('yield', $._expression),
+	    $._expression
+	),
+	gets: $ => seq($._lowercase_name, '<-', $._expression),
+	filter: $ => seq('if', $._expression),
+	if: $ => seq('if', '(', $._expression, ')', $._expression, 'else', $._expression ),
 	ref: $ => seq('ref', $._expression, '@', $._lowercase_name),
 	deref: $ => prec(PREC.deref, seq('deref', $._expression)),
 	assign: $ => prec.left(PREC.assign, seq($._expression, ':=', $._expression)),
 	region: $ => seq('region', field('name', $._lowercase_name), '{', field('body', $._stmt), '}'),
-	let: $ => seq('let', $._lowercase_name, '=', $._expression),
+	let: $ => seq('let', $._lowercase_name, optional(seq(':', $._type)), '=', $._expression),
 	unary: $ => prec(PREC.unary, choice(
 	    seq('-', $._expression),
 	    seq('+', $._expression),
@@ -193,8 +229,8 @@ module.exports = grammar({
 	    prec.left(PREC.append, 
 		seq($._expression, choice(':::'), $._expression)),
 	),
-	grouped_expression: $ => prec(PREC.group, seq('(', $._expression, ')')),
-	tuple_expression: $ => seq('(', one_or_more($._expression), ')'),
+	group: $ => prec(PREC.group, seq('(', $._expression, ')')),
+	tuple: $ => seq('(', one_or_more($._expression), ')'),
 	infix_function: $ => seq('`', $._lowercase_name, '`'),
 
 	/////// TYPES /////////
@@ -287,10 +323,11 @@ module.exports = grammar({
 	    optional(seq('|', $._lowercase_name)), 
 	    '}'
 	),
-	record_item: $ => choice(
+	// TODO: This prec should be something sensible
+	record_item: $ => prec(100, choice(
 	    seq('-', $._lowercase_name),
 	    seq(optional('+'), $._lowercase_name, '=', $._expression)
-	), 
+	)), 
 
 	// Workaround to https://github.com/tree-sitter/tree-sitter/issues/1156
 	// We give names to the token_ constructs containing a regexp

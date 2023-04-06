@@ -7,12 +7,12 @@
 "case"      @keyword
 ; "class"     @keyword
 "let"       @keyword
-; "if"        @keyword
-; "else"      @keyword
+"if"        @keyword
+"else"      @keyword
 ; "match"     @keyword
 "region"    @keyword
-"ref"   @keyword
-"deref" @keyword
+"ref"       @keyword
+"deref"     @keyword
 ; "with"      @keyword
 ; "inject"    @keyword
 ; "into"      @keyword
@@ -20,17 +20,16 @@
 ; "select"    @keyword
 "mod"       @keyword
 "use"       @keyword
-; "for"       @keyword
-; "forM"      @keyword
-; "forA"      @keyword
-; "foreach"   @keyword
+"forM"      @keyword
+"forA"      @keyword
+"foreach"   @keyword
 "pub"       @keyword
 "override"  @keyword
 "sealed"    @keyword
 "inline"    @keyword
 "lawful"    @keyword
 "opaque"    @keyword
-; "yield"     @keyword
+"yield"     @keyword
 ; "par"       @keyword
 ; "class"     @keyword
 ; "law"       @keyword

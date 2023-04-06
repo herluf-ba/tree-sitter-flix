@@ -34,6 +34,10 @@
         "named": true
       },
       {
+        "type": "block",
+        "named": true
+      },
+      {
         "type": "deref",
         "named": true
       },
@@ -42,11 +46,27 @@
         "named": true
       },
       {
-        "type": "grouped_expression",
+        "type": "for_applicative",
+        "named": true
+      },
+      {
+        "type": "for_monadic",
+        "named": true
+      },
+      {
+        "type": "foreach",
+        "named": true
+      },
+      {
+        "type": "group",
         "named": true
       },
       {
         "type": "identifier",
+        "named": true
+      },
+      {
+        "type": "if",
         "named": true
       },
       {
@@ -62,7 +82,7 @@
         "named": true
       },
       {
-        "type": "tuple_expression",
+        "type": "tuple",
         "named": true
       },
       {
@@ -173,6 +193,21 @@
         },
         {
           "type": "user_operator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
           "named": true
         }
       ]
@@ -393,6 +428,90 @@
     }
   },
   {
+    "type": "filter",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "for_applicative",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "filter",
+          "named": true
+        },
+        {
+          "type": "gets",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "for_monadic",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "filter",
+          "named": true
+        },
+        {
+          "type": "gets",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "foreach",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "filter",
+          "named": true
+        },
+        {
+          "type": "gets",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "function_declaration",
     "named": true,
     "fields": {
@@ -505,11 +624,41 @@
     }
   },
   {
-    "type": "grouped_expression",
+    "type": "gets",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "group",
     "named": true,
     "fields": {},
     "children": {
       "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "if",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -549,6 +698,30 @@
       "types": [
         {
           "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "polymorphic_identifier",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "type_function",
+          "named": true
+        },
+        {
+          "type": "type_primitive",
+          "named": true
+        },
+        {
+          "type": "type_record",
+          "named": true
+        },
+        {
+          "type": "type_tuple",
           "named": true
         }
       ]
@@ -835,7 +1008,7 @@
     }
   },
   {
-    "type": "tuple_expression",
+    "type": "tuple",
     "named": true,
     "fields": {},
     "children": {
@@ -1275,6 +1448,10 @@
     "named": false
   },
   {
+    "type": "<-",
+    "named": false
+  },
+  {
     "type": "<<<",
     "named": false
   },
@@ -1447,6 +1624,10 @@
     "named": true
   },
   {
+    "type": "else",
+    "named": false
+  },
+  {
     "type": "enum",
     "named": false
   },
@@ -1463,8 +1644,24 @@
     "named": true
   },
   {
+    "type": "forA",
+    "named": false
+  },
+  {
+    "type": "forM",
+    "named": false
+  },
+  {
+    "type": "foreach",
+    "named": false
+  },
+  {
     "type": "identifier",
     "named": true
+  },
+  {
+    "type": "if",
+    "named": false
   },
   {
     "type": "inline",
@@ -1549,6 +1746,10 @@
   {
     "type": "user_operator",
     "named": true
+  },
+  {
+    "type": "yield",
+    "named": false
   },
   {
     "type": "{",
