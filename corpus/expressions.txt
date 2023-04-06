@@ -61,6 +61,24 @@ def main(): Int32 = let a: Int32 = 1
       (identifier)
       (type_primitive)
       (integer))))
+
+=====
+let match 
+=====
+def main(): Int32 = let (x, y) = (1, 2)
+---
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (let
+      (tuple
+        (identifier)
+        (identifier))
+      (tuple
+        (integer)
+        (integer)))))
 =====
 region
 =====
@@ -290,3 +308,112 @@ def main(): Int32 = let a = { 1 }
       (block
         (integer)))))
 
+=====
+match
+=====
+def main(): Int32 = match a {
+  case 1 => true
+  case _ => false
+}
+---
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (match
+      (identifier)
+      (case
+        (integer)
+        (boolean))
+      (case
+        (boolean)))))
+
+=====
+match enum
+=====
+def main(): Int32 = match a {
+  case Shape.Circle(r) => true
+  case Shape.Square(w) => false
+  case Shape.Rectangle(h, w) => false
+}
+---
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (match
+      (identifier)
+      (case
+        (constructor
+          (field
+            (identifier)
+            (identifier))
+          (identifier))
+        (boolean))
+      (case
+        (constructor
+          (field
+            (identifier)
+            (identifier))
+          (identifier))
+        (boolean))
+      (case
+        (constructor
+          (field
+            (identifier)
+            (identifier))
+          (identifier)
+          (identifier))
+        (boolean)))))
+
+=====
+match cons
+=====
+def main(): Int32 = match a {
+  case Nil => true
+  case x :: xs => false
+}
+---
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (match
+      (identifier)
+      (case
+        (nil)
+        (boolean))
+      (case
+        (identifier)
+        (identifier)
+        (boolean)))))
+
+=====
+match wildcard, tuple and name
+=====
+def main(): Int32 = match a {
+  case x => true
+  case (x, y) => false
+  case _ => true
+}
+---
+(program
+  (function_declaration
+    (identifier)
+    (parameters)
+    (type_primitive)
+    (match
+      (identifier)
+      (case
+        (identifier)
+        (boolean))
+      (case
+        (tuple
+          (identifier)
+          (identifier))
+        (boolean))
+      (case
+        (boolean)))))

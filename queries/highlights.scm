@@ -5,15 +5,17 @@
 "def"       @keyword
 "enum"      @keyword
 "case"      @keyword
+; "instance"  @keyword
 ; "class"     @keyword
+; "with"      @keyword
 "let"       @keyword
 "if"        @keyword
 "else"      @keyword
-; "match"     @keyword
+"match"     @keyword
 "region"    @keyword
 "ref"       @keyword
 "deref"     @keyword
-; "with"      @keyword
+; "law"       @keyword
 ; "inject"    @keyword
 ; "into"      @keyword
 ; "query"     @keyword
@@ -29,11 +31,6 @@
 "inline"    @keyword
 "lawful"    @keyword
 "opaque"    @keyword
-"yield"     @keyword
-; "par"       @keyword
-; "class"     @keyword
-; "law"       @keyword
-; "instance"  @keyword
 
 ; OPERATORS
 "not"   @keyword.operator
@@ -41,7 +38,9 @@
 "or"    @keyword.operator
 "mod"   @keyword.operator
 "rem"   @keyword.operator
-; "spawn"      @keyword.operator
+"yield" @keyword.operator
+; "par"       @keyword.operator
+; "spawn"     @keyword.operator
 ; "lazy"      @keyword.operator
 ; "force"     @keyword.operator
 "|||" @operator
@@ -97,6 +96,7 @@
 ":"  @punctuation.delimiter
 "\\" @punctuation.delimiter
 "->" @punctuation
+"_"  @punctuation
 "=>" @punctuation.delimiter
 
 ; ENUMS

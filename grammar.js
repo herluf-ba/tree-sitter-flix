@@ -136,6 +136,7 @@ module.exports = grammar({
 	    $._lowercase_name,
 	    $.block,
 	    $.if,
+	    $.match,
 	    $.for_monadic,
 	    $.for_applicative,
 	    $.foreach,
@@ -150,12 +151,8 @@ module.exports = grammar({
 	    $.group,
 	    $.tuple
 	),
-	block: $ => seq('{', $._stmt, '}'),
-	field: $ => prec(PREC.field, seq(
-	    choice( $._name, $.field),
-	    '.',
-	    $._name
-	)),
+
+	///////// CONTROL STRUCTURES /////////////
 	for_applicative: $ => seq(
 	    'forA', 
 	    '(', 
@@ -186,11 +183,30 @@ module.exports = grammar({
 	gets: $ => seq($._lowercase_name, '<-', $._expression),
 	filter: $ => seq('if', $._expression),
 	if: $ => seq('if', '(', $._expression, ')', $._expression, 'else', $._expression ),
+	match: $ => seq('match', $._expression, '{', repeat(alias($.match_case, $.case)), '}' ),
+	match_case: $ => seq('case', field('pattern', $._pattern_cons), '=>', field('expression', $._expression)),
+	_pattern_cons: $ => seq($._pattern, optional(seq('::', $._pattern))),
+	_pattern: $ => choice(
+	    '_',
+	    $._literal,
+	    $._lowercase_name,
+	    alias($.pattern_constructor, $.constructor),
+	    alias($._pattern_tuple, $.tuple)
+	),
+	pattern_constructor: $ => seq($.field, optional($._pattern_tuple)),
+	_pattern_tuple: $ => seq('(', zero_or_more($._pattern), ')'),	
+    
+	///////////// 'SIMPLE' EXPRESSIONS ////////////
+	tuple: $ => seq('(', one_or_more($._expression), ')'),
+	block: $ => seq('{', $._stmt, '}'),
+	field: $ => prec(PREC.field, seq( choice( $._name, $.field), '.', $._name)),
 	ref: $ => seq('ref', $._expression, '@', $._lowercase_name),
 	deref: $ => prec(PREC.deref, seq('deref', $._expression)),
 	assign: $ => prec.left(PREC.assign, seq($._expression, ':=', $._expression)),
 	region: $ => seq('region', field('name', $._lowercase_name), '{', field('body', $._stmt), '}'),
-	let: $ => seq('let', $._lowercase_name, optional(seq(':', $._type)), '=', $._expression),
+	let: $ => seq('let', $._pattern, optional(seq(':', $._type)), '=', $._expression),
+	
+	/////////// OPERATORS /////////////
 	unary: $ => prec(PREC.unary, choice(
 	    seq('-', $._expression),
 	    seq('+', $._expression),
@@ -230,7 +246,6 @@ module.exports = grammar({
 		seq($._expression, choice(':::'), $._expression)),
 	),
 	group: $ => prec(PREC.group, seq('(', $._expression, ')')),
-	tuple: $ => seq('(', one_or_more($._expression), ')'),
 	infix_function: $ => seq('`', $._lowercase_name, '`'),
 
 	/////// TYPES /////////
@@ -305,7 +320,7 @@ module.exports = grammar({
 	    $.record
 	),
 	nil: $ => /Nil/,
-	unit: $ => seq('(', ')'),
+	unit: $ => prec(100, seq('(', ')')),
 	integer: ($) => /\d+(i8|i16|i32|i64|ii)?/,
 	float: ($) => /\d+\.\d+(f32|f64|ff)?/,
 	boolean: ($) => choice('true', 'false'),

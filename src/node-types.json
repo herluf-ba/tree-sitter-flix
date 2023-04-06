@@ -74,6 +74,10 @@
         "named": true
       },
       {
+        "type": "match",
+        "named": true
+      },
+      {
         "type": "ref",
         "named": true
       },
@@ -219,6 +223,52 @@
     "fields": {}
   },
   {
+    "type": "case",
+    "named": true,
+    "fields": {
+      "expression": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression",
+            "named": true
+          }
+        ]
+      },
+      "pattern": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "::",
+            "named": false
+          },
+          {
+            "type": "_",
+            "named": false
+          },
+          {
+            "type": "_literal",
+            "named": true
+          },
+          {
+            "type": "constructor",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "tuple",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "comment",
     "named": true,
     "fields": {},
@@ -249,11 +299,27 @@
       }
     },
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
+          "type": "_literal",
+          "named": true
+        },
+        {
+          "type": "constructor",
+          "named": true
+        },
+        {
+          "type": "field",
+          "named": true
+        },
+        {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "tuple",
           "named": true
         }
       ]
@@ -701,6 +767,10 @@
           "named": true
         },
         {
+          "type": "constructor",
+          "named": true
+        },
+        {
           "type": "polymorphic_identifier",
           "named": true
         },
@@ -767,6 +837,25 @@
       "types": [
         {
           "type": "_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "match",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "case",
           "named": true
         }
       ]
@@ -1013,10 +1102,14 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "constructor",
           "named": true
         }
       ]
@@ -1592,6 +1685,10 @@
     "named": false
   },
   {
+    "type": "_",
+    "named": false
+  },
+  {
     "type": "`",
     "named": false
   },
@@ -1682,6 +1779,10 @@
   {
     "type": "line_comment",
     "named": true
+  },
+  {
+    "type": "match",
+    "named": false
   },
   {
     "type": "mod",
