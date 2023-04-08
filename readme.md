@@ -14,18 +14,18 @@ Note that this is not an LSP, so it wont provide features like go-to-definition,
 - [x] enums
 - [ ] type classes (remember derivations on enums)
 - [x] modules
-- [ ] regions, ref and deref
-- [ ] expression: match
-- [ ] expression: if
-- [ ] expression: monadic-for
-- [ ] expression: foreach
-- [ ] use statements
+- [x] regions, ref and deref
+- [x] expression: match
+- [x] expression: if
+- [x] expression: monadic-for
+- [x] expression: foreach
+- [x] use statements
 - [x] cons (::) and append (:::)
 - [x] List, Set, Map, Chain, Vector and Array litterals
 - [x] Record literals and types
 - [ ] match lambdas
 - [ ] Datalog constraints
-- [ ] keywords from (this)[https://doc.flix.dev/identifiers.html]
+- [ ] keywords from [this](https://doc.flix.dev/identifiers.html)
 - [ ] string interpolation
 - [ ] greek names
 - [ ] block comments
