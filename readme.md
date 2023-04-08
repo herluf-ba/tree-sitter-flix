@@ -1,5 +1,5 @@
 # tree-sitter-flix
-tree-sitter grammar and highlight queries for the (Flix programming language)[https://flix.dev/].
+tree-sitter grammar and highlight queries for the [Flix programming language](https://flix.dev/).
 Enables semantic syntax highlighting and navigation (think expand/reduce selection).
 
 Note that this is not an LSP, so it wont provide features like go-to-definition, rename-symbol or suggestions.
